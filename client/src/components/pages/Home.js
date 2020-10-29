@@ -1,9 +1,13 @@
 import React from "react";
+import Records from "../records/Records";
 
-export const Home = () => {
+const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className="grid-2">
+      <div>{/* RecordForm */}</div>
+      <div>
+        <Records />
+      </div>
     </div>
   );
 };
