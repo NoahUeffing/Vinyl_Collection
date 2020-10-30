@@ -1,15 +1,35 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import RecordContext from "../../context/record/recordContext";
 
 const RecordForm = () => {
   const recordContext = useContext(RecordContext);
+
+  const { addRecord, updateRecord, clearCurrent, current } = recordContext;
+
+  useEffect(() => {
+    if (current !== null) {
+      setRecord(current);
+    } else {
+      setRecord({
+        title: "",
+        artist: "",
+        genre: "",
+        label: "",
+        format: "Vinyl",
+        country: "",
+        releaseDate: "",
+        rating: "",
+        notes: "",
+      });
+    }
+  }, [recordContext, current]);
 
   const [record, setRecord] = useState({
     title: "",
     artist: "",
     genre: "",
     label: "",
-    format: "vinyl",
+    format: "Vinyl",
     country: "",
     releaseDate: "",
     rating: "",
@@ -30,15 +50,20 @@ const RecordForm = () => {
 
   const onChange = (e) =>
     setRecord({ ...record, [e.target.name]: e.target.value });
+
   const onSubmit = (e) => {
     e.preventDefault();
-    recordContext.addRecord(record);
+    if (current === null) {
+      addRecord(record);
+    } else {
+      updateRecord(record);
+    }
     setRecord({
       title: "",
       artist: "",
       genre: "",
       label: "",
-      format: "vinyl",
+      format: "Vinyl",
       country: "",
       releaseDate: "",
       rating: "",
@@ -46,9 +71,13 @@ const RecordForm = () => {
     });
   };
 
+  const clearAll = () => {
+    clearCurrent();
+  };
+
   return (
     <form onSubmit={onSubmit}>
-      <h2 className="text-primary">Add Record</h2>
+      <h2 className="text-primary">{current ? "Edit Record" : "Add Record"}</h2>
       <input
         type="text"
         placeholder="Title"
@@ -118,7 +147,7 @@ const RecordForm = () => {
         onChange={onChange}
       />
       <input
-        type="date"
+        type="text"
         placeholder="Release Date"
         name="releaseDate"
         value={releaseDate}
@@ -126,7 +155,7 @@ const RecordForm = () => {
       />
       <input
         type="text"
-        placeholder="Rating"
+        placeholder="Rating out of 10"
         name="rating"
         value={rating}
         onChange={onChange}
@@ -141,10 +170,17 @@ const RecordForm = () => {
       <div>
         <input
           type="submit"
-          value="Add Contact"
+          value={current ? "Update Record" : "Add Record"}
           className="btn btn-primary btn-block"
         />
       </div>
+      {current && (
+        <div>
+          <button className="btn btn-light btn-block" onClick={clearAll}>
+            Clear
+          </button>
+        </div>
+      )}
     </form>
   );
 };

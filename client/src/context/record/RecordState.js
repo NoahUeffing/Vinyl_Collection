@@ -53,6 +53,8 @@ const RecordState = (props) => {
           "One of the guitar players is a dentist and wears only underwear on stage",
       },
     ],
+    current: null,
+    filtered: null,
   };
 
   const [state, dispatch] = useReducer(recordReducer, initialState);
@@ -64,22 +66,46 @@ const RecordState = (props) => {
   };
 
   // Delete Record
+  const deleteRecord = (id) => {
+    dispatch({ type: DELETE_RECORD, payload: id });
+  };
 
   // Set Current Record
+  const setCurrent = (record) => {
+    dispatch({ type: SET_CURRENT, payload: record });
+  };
 
   // Clear current Record
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  };
 
   // Update Record
+  const updateRecord = (record) => {
+    dispatch({ type: UPDATE_RECORD, payload: record });
+  };
 
-  // filter Records
-
+  // Filter Records
+  const filterRecords = (text) => {
+    dispatch({ type: FILTER_RECORDS, payload: text });
+  };
   // Clear Filter
-
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  };
   return (
     <RecordContext.Provider
       value={{
         records: state.records,
+        current: state.current,
+        filtered: state.filtered,
         addRecord,
+        deleteRecord,
+        setCurrent,
+        clearCurrent,
+        updateRecord,
+        filterRecords,
+        clearFilter,
       }}
     >
       {props.children}

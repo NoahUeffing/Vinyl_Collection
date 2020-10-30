@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import RecordContext from "../../context/record/recordContext";
 
 const RecordItem = ({ record }) => {
+  const recordContext = useContext(RecordContext);
+  const { deleteRecord, setCurrent, clearCurrent } = recordContext;
+
   const {
     id,
     title,
@@ -14,6 +18,12 @@ const RecordItem = ({ record }) => {
     rating,
     notes,
   } = record;
+
+  const onDelete = () => {
+    deleteRecord(id);
+    clearCurrent();
+  };
+
   return (
     <div className="card bg-light">
       <h3 className="text-primary text-left">
@@ -66,8 +76,15 @@ const RecordItem = ({ record }) => {
         )}
       </ul>
       <p>
-        <button className="btn btn-dark btn-sm">Edit</button>
-        <button className="btn btn-danger btn-sm">Delete</button>
+        <button
+          className="btn btn-dark btn-sm"
+          onClick={() => setCurrent(record)}
+        >
+          Edit
+        </button>
+        <button className="btn btn-danger btn-sm" onClick={onDelete}>
+          Delete
+        </button>
       </p>
     </div>
   );
@@ -78,5 +95,3 @@ RecordItem.propTypes = {
 };
 
 export default RecordItem;
-{
-}
