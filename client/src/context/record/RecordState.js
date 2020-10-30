@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import uuid from "uuid";
+import uuid from "uuid/v4";
 import RecordContext from "./recordContext";
 import recordReducer from "./recordReducer";
 import {
@@ -21,7 +21,7 @@ const RecordState = (props) => {
         artist: "Billy Talent",
         genre: "Alternative Rock",
         label: "Atlantic",
-        format: "Vinyl LP",
+        format: "Vinyl",
         country: "Canada",
         releaseDate: "June 27, 2006",
         rating: "9",
@@ -33,7 +33,7 @@ const RecordState = (props) => {
         artist: "Queens of the Stone Age",
         genre: "Hard Rock",
         label: "Matador",
-        format: "Vinyl LP",
+        format: "Vinyl",
         country: "USA",
         releaseDate: "June 3, 2013",
         rating: "10",
@@ -58,6 +58,10 @@ const RecordState = (props) => {
   const [state, dispatch] = useReducer(recordReducer, initialState);
 
   // Add Record
+  const addRecord = (record) => {
+    record.id = uuid();
+    dispatch({ type: ADD_RECORD, payload: record });
+  };
 
   // Delete Record
 
@@ -75,6 +79,7 @@ const RecordState = (props) => {
     <RecordContext.Provider
       value={{
         records: state.records,
+        addRecord,
       }}
     >
       {props.children}

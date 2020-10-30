@@ -30,37 +30,37 @@ const RecordItem = ({ record }) => {
       <ul className="list">
         {genre && (
           <li>
-            <i className=""></i>
+            <i className="fas fa-music"></i>
             {genre}
           </li>
         )}
         {label && (
           <li>
-            <i className=""></i>
+            <i className="fas fa-building"></i>
             {label}
           </li>
         )}
         {format && (
           <li>
-            <i className=""></i>
+            <i className="fas fa-file-audio"></i>
             {format}
           </li>
         )}
         {country && (
           <li>
-            <i className=""></i>
+            <i className="far fa-flag"></i>
             {country}
           </li>
         )}
         {releaseDate && (
           <li>
-            <i className=""></i>
+            <i className="far fa-calendar-alt"></i>
             {releaseDate}
           </li>
         )}
         {notes && (
           <li>
-            <i className=""></i>
+            <i className="far fa-comment"></i>
             {notes}
           </li>
         )}

@@ -21,7 +21,7 @@ const RecordSchema = mongoose.Schema({
   },
   format: {
     type: String,
-    default: "Vinyl LP",
+    default: "Vinyl",
   },
   country: {
     type: String,
