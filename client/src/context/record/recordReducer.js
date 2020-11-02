@@ -7,7 +7,7 @@ import {
   FILTER_RECORDS,
   CLEAR_FILTER,
 } from "../types";
-
+// eslint-disable-next-line
 export default (state, action) => {
   switch (action.type) {
     case ADD_RECORD:
