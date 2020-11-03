@@ -7,7 +7,7 @@ const RecordItem = ({ record }) => {
   const { deleteRecord, setCurrent, clearCurrent } = recordContext;
 
   const {
-    id,
+    _id,
     title,
     artist,
     genre,
@@ -20,7 +20,7 @@ const RecordItem = ({ record }) => {
   } = record;
 
   const onDelete = () => {
-    deleteRecord(id);
+    deleteRecord(_id);
     clearCurrent();
   };
 

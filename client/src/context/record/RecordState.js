@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import uuid from "uuid/v4";
+import axios from "axios";
 import RecordContext from "./recordContext";
 import recordReducer from "./recordReducer";
 import {
@@ -10,64 +10,74 @@ import {
   UPDATE_RECORD,
   FILTER_RECORDS,
   CLEAR_FILTER,
+  RECORD_ERROR,
+  GET_RECORDS,
+  CLEAR_RECORDS,
 } from "../types";
 
 const RecordState = (props) => {
   const initialState = {
-    records: [
-      {
-        id: 1,
-        title: "Billy Talent II",
-        artist: "Billy Talent",
-        genre: "Alternative Rock",
-        label: "Atlantic",
-        format: "Vinyl",
-        country: "Canada",
-        releaseDate: "June 27, 2006",
-        rating: "9",
-        notes: "The album that got me into music",
-      },
-      {
-        id: 2,
-        title: "...Like Clockwork",
-        artist: "Queens of the Stone Age",
-        genre: "Hard Rock",
-        label: "Matador",
-        format: "Vinyl",
-        country: "USA",
-        releaseDate: "June 3, 2013",
-        rating: "10",
-        notes: "I Appear Missing may be my favourite song of all time.",
-      },
-      {
-        id: 3,
-        title: "Joy as an Act of Resistance",
-        artist: "Idles",
-        genre: "Punk Rock",
-        label: "Partisan",
-        format: "Digital",
-        country: "UK",
-        releaseDate: "August 31, 2018",
-        rating: "9",
-        notes:
-          "One of the guitar players is a dentist and wears only underwear on stage",
-      },
-    ],
+    records: null,
     current: null,
     filtered: null,
+    error: null,
   };
 
   const [state, dispatch] = useReducer(recordReducer, initialState);
 
+  // Get Records
+  const getRecords = async () => {
+    try {
+      const res = await axios.get("/api/records");
+      dispatch({ type: GET_RECORDS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: RECORD_ERROR, payload: err.response.msg });
+    }
+  };
+
   // Add Record
-  const addRecord = (record) => {
-    record.id = uuid();
-    dispatch({ type: ADD_RECORD, payload: record });
+  const addRecord = async (record) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/api/records", record, config);
+      dispatch({ type: ADD_RECORD, payload: res.data });
+    } catch (err) {
+      dispatch({ type: RECORD_ERROR, payload: err.response.msg });
+    }
   };
 
   // Delete Record
-  const deleteRecord = (id) => {
-    dispatch({ type: DELETE_RECORD, payload: id });
+  const deleteRecord = async (id) => {
+    try {
+      await axios.delete(`/api/records/${id}`);
+      dispatch({ type: DELETE_RECORD, payload: id });
+    } catch (err) {
+      dispatch({ type: RECORD_ERROR, payload: err.response.msg });
+    }
+  };
+
+  // Update Record
+  const updateRecord = async (record) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.put(`/api/records/${record._id}`, record, config);
+      dispatch({ type: UPDATE_RECORD, payload: res.data });
+    } catch (err) {
+      dispatch({ type: RECORD_ERROR, payload: err.response.msg });
+    }
+  };
+
+  // Clear Records
+  const clearRecords = () => {
+    dispatch({ type: CLEAR_RECORDS });
   };
 
   // Set Current Record
@@ -78,11 +88,6 @@ const RecordState = (props) => {
   // Clear current Record
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT });
-  };
-
-  // Update Record
-  const updateRecord = (record) => {
-    dispatch({ type: UPDATE_RECORD, payload: record });
   };
 
   // Filter Records
@@ -99,6 +104,7 @@ const RecordState = (props) => {
         records: state.records,
         current: state.current,
         filtered: state.filtered,
+        error: state.error,
         addRecord,
         deleteRecord,
         setCurrent,
@@ -106,6 +112,8 @@ const RecordState = (props) => {
         updateRecord,
         filterRecords,
         clearFilter,
+        getRecords,
+        clearRecords,
       }}
     >
       {props.children}
