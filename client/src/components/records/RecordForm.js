@@ -80,14 +80,14 @@ const RecordForm = () => {
       <h2 className="text-primary">{current ? "Edit Record" : "Add Record"}</h2>
       <input
         type="text"
-        placeholder="Title"
+        placeholder="Title (Required)"
         name="title"
         value={title}
         onChange={onChange}
       />
       <input
         type="text"
-        placeholder="Artist"
+        placeholder="Artist (Required)"
         name="artist"
         value={artist}
         onChange={onChange}

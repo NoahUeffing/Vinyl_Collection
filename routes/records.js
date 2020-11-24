@@ -97,7 +97,7 @@ router.put("/:id", auth, async (req, res) => {
   if (label) recordFields.label = label;
   if (format) recordFields.format = format;
   if (country) recordFields.country = country;
-  if (releaseDate) recordFields.releaseDate = releseDate;
+  if (releaseDate) recordFields.releaseDate = releaseDate;
   if (rating) recordFields.rating = rating;
   if (notes) recordFields.notes = notes;
 

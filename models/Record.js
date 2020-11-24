@@ -28,7 +28,6 @@ const RecordSchema = mongoose.Schema({
   },
   releaseDate: {
     type: Date,
-    default: Date.now,
   },
   rating: {
     type: Number,
