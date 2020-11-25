@@ -2,11 +2,13 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #003699;
+  --primary-color: #101010;
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+  --caution-color: #ffd300;
+  --gold-color: #d4af37;
 }
 
 * {
@@ -72,6 +74,10 @@ img {
 
 .text-primary {
   color: var(--primary-color);
+}
+
+.text-light {
+  color: var(--light-color);
 }
 
 .text-dark {
@@ -263,11 +269,27 @@ img {
   color: #fff;
 }
 
+.btn-caution,
+.bg-caution,
+.badge-caution,
+.alert-caution {
+  background: var(--caution-color);
+  color: #fff;
+}
+
 .btn-success,
 .bg-success,
 .badge-success,
 .alert-success {
   background: var(--success-color);
+  color: #fff;
+}
+
+.btn-gold,
+.bg-gold,
+.badge-gold,
+.alert-gold {
+  background: var(--gold-color);
   color: #fff;
 }
 

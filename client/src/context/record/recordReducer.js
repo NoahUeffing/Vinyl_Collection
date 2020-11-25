@@ -71,9 +71,9 @@ export default (state, action) => {
             record.label.match(regex) ||
             record.format.match(regex) ||
             record.country.match(regex) ||
-            record.releaseDate.match(regex) ||
+            String(record.releaseDate).match(regex) ||
             record.notes.match(regex) ||
-            record.rating.match(regex)
+            String(record.rating).match(regex)
           );
         }),
       };

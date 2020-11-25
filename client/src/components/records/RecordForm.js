@@ -150,7 +150,7 @@ const RecordForm = () => {
         type="text"
         placeholder="Release Date"
         name="releaseDate"
-        value={releaseDate}
+        value={releaseDate.split("T")[0]}
         onChange={onChange}
       />
       <input

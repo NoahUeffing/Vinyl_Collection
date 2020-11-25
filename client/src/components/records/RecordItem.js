@@ -31,7 +31,11 @@ const RecordItem = ({ record }) => {
         <span
           style={{ float: "right" }}
           className={
-            "badge " + (rating === "10" ? "badge-success" : "badge-primary")
+            "badge " +
+            (rating > 6 ? "badge-success" : "") +
+            (rating < 4 ? "badge-danger" : "") +
+            (rating <= 6 && 4 <= rating ? "badge-caution" : "") +
+            (rating === null ? "badge-caution" : "")
           }
         >
           {rating}
@@ -65,7 +69,7 @@ const RecordItem = ({ record }) => {
         {releaseDate && (
           <li>
             <i className="far fa-calendar-alt"></i>
-            {releaseDate}
+            {releaseDate.split("T")[0]}
           </li>
         )}
         {notes && (
