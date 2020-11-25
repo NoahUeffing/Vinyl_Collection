@@ -69,7 +69,7 @@ const RecordItem = ({ record }) => {
         {releaseDate && (
           <li>
             <i className="far fa-calendar-alt"></i>
-            {releaseDate.split("T")[0]}
+            {releaseDate === null ? releaseDate : releaseDate.split("T")[0]}
           </li>
         )}
         {notes && (

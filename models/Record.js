@@ -31,8 +31,8 @@ const RecordSchema = mongoose.Schema({
   },
   rating: {
     type: Number,
-    min: [0, "No negative scores"],
-    max: [10, "The maximum rating is 10"],
+    min: 0,
+    max: 10,
   },
   notes: {
     type: String,
